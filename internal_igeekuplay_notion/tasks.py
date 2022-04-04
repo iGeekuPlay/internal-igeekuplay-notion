@@ -2,6 +2,8 @@ import json
 from flask import Blueprint, jsonify, request
 from internal_igeekuplay_notion.utilities.notion import Notion
 import os
+from internal_igeekuplay_notion.utilities.auth import auth
+
 
 TASK_DB = os.getenv("TASK_DB")
 
@@ -10,6 +12,7 @@ n = Notion(notion_token)
 task_blueprint = Blueprint('tasks', __name__)
 
 @task_blueprint.route('/', methods=['GET', 'POST'])
+@auth.login_required
 def index():
     if request.method == 'POST':
         data = json.dumps(request.json)
@@ -21,6 +24,7 @@ def index():
     return jsonify(result)
 
 @task_blueprint.route('/<event_name>', methods=['GET'])
+@auth.login_required
 def get_event(task_name):
     data = json.dumps({"filter": {"and": [{"property": "Name", "title": {"contains": task_name}}]}})
     result = n.query_db(TASK_DB, payload=data)['results']
@@ -28,6 +32,7 @@ def get_event(task_name):
 
 
 @task_blueprint.route('/search', methods=['POST'])
+@auth.login_required
 def search_tasks():
     data = json.dumps(request.json)
     print(f"DATA: {data}")

@@ -16,3 +16,5 @@ app.register_blueprint(task_blueprint, url_prefix='/tasks')
 app.register_blueprint(project_blueprint, url_prefix='/projects')
 app.register_blueprint(invoice_blueprint, url_prefix='/invoices')
 
+if __name__ == '__main__':
+    app.run()

@@ -2,6 +2,8 @@ import json
 from flask import Blueprint, jsonify, request
 from internal_igeekuplay_notion.utilities.notion import Notion
 import os
+from internal_igeekuplay_notion.utilities.auth import auth
+
 
 
 INVOICE_DB = os.getenv("INVOICE_DB")
@@ -11,6 +13,7 @@ n = Notion(notion_token)
 invoice_blueprint = Blueprint('invoices', __name__)
 
 @invoice_blueprint.route('/', methods=['GET', 'POST'])
+@auth.login_required
 def index():
     if request.method == 'POST':
         data = json.dumps(request.json)
@@ -22,6 +25,7 @@ def index():
     return jsonify(result)
 
 @invoice_blueprint.route('/<invoice_name>', methods=['GET'])
+@auth.login_required
 def get_invoice(project_name):
     data = json.dumps({"filter": {"and": [{"property": "Name", "title": {"contains": invoice_name}}]}})
     result = n.query_db(INVOICE_DB, payload=data)['results']
@@ -29,6 +33,7 @@ def get_invoice(project_name):
 
 
 @invoice_blueprint.route('/search', methods=['POST'])
+@auth.login_required
 def search_inovices():
     data = json.dumps(request.json)
     print(f"DATA: {data}")
