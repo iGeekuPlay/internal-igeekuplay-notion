@@ -1,11 +1,11 @@
 from flask import Flask
 from internal_igeekuplay_notion.users import user_blueprint
-from contacts import contact_blueprint
-from events import event_blueprint
-from companies import company_blueprint
-from tasks import task_blueprint
-from projects import project_blueprint
-from invoices import invoice_blueprint
+from internal_igeekuplay_notion.contacts import contact_blueprint
+from internal_igeekuplay_notion.events import event_blueprint
+from internal_igeekuplay_notion.companies import company_blueprint
+from internal_igeekuplay_notion.tasks import task_blueprint
+from internal_igeekuplay_notion.projects import project_blueprint
+from internal_igeekuplay_notion.invoices import invoice_blueprint
 
 app = Flask(__name__)
 app.register_blueprint(user_blueprint, url_prefix='/users')

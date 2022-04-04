@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from utilities.notion import Notion
+from internal_igeekuplay_notion.utilities.notion import Notion
 import os
 
 
