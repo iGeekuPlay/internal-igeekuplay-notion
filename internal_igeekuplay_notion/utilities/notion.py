@@ -18,6 +18,7 @@ class Notion:
         headers['Notion-Version'] = '2022-02-22'
 
         response = requests.request(method, url, headers=headers, data=payload)
+        print(response)
         return response
 
     def get_block_children(self, block_id):
