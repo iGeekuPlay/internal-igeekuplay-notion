@@ -34,5 +34,5 @@ def get_company(company_name):
 def search_companies():
     data = json.dumps(request.json)
     print(f"DATA: {data}")
-    result = n.query_db(, payload=data)['results']
+    result = n.query_db(COMPANY_DB, payload=data)['results']
     return jsonify(result)
