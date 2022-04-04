@@ -1,1 +1,3 @@
 Flask==2.0.0
+requests==2.27.1
+munch==2.5.0
